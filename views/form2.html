@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pets</title>
+</head>
+
+<body>
+<form method="post" action="#">
+    <select name="color">
+        <option value="none">-- Select --</option>
+        <repeat group="{{ @colors }}" value="{{ @colorOption }}">
+            <check if="{{ @color == @colorOption }}">
+                <true>
+                    <option name="color" value="{{ @colorOption }}" selected>
+                        {{ @colorOption }}
+                    </option>
+                </true>
+                <false>
+                    <option name="color" value="{{ @colorOption }}">
+                        {{ @colorOption }}
+                    </option>
+                </false>
+            </check>
+        </repeat>
+    </select><br>
+    <label>Enter a pet name</label><br>
+    <input type="text" name="name" value="{{ @name }}">
+    <check if="{{ @errors['name'] }}">
+        <span class="err">{{ @errors['name'] }}</span>
+    </check>
+    <br>
+    <button type="submit">Next>></button>
+</form>
+
+
+</body>
+
+</html>
