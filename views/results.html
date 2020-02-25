@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Results</h1>
-<h2>Your {{ @SESSION.animal->getType() }} {{ @SESSION.animal->getName() }} is {{ @SESSION.animal->getColor() }}</h2>
+<h2>Your {{ @SESSION['animal']->getColor() }} {{ @SESSION['animal']->getType() }} named {{ @SESSION['animal']->getName() }}, has been added to the list.</h2>
+<a href="show">Show Pets</a>
 </body>
 </html>

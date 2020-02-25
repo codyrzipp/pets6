@@ -36,6 +36,11 @@ $f3->route('POST|GET /order2', function ($f3) {
     //echo "<a href='order'>Order a Pet</a>";
 });
 
+$f3->route('GET|POST /show', function ($f3) {
+    global $controller;
+    $controller->show();
+});
+
 $f3->route('GET|POST /results', function ($f3) {
     global $controller;
     $controller->result();

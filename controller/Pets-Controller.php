@@ -4,10 +4,13 @@ class PetController
 {
     private $_f3; //router
     private $_val; //validation
+    private $_cnxn;
+
     public function __construct($f3)
     {
         $this->_f3 = $f3;
-//        $this->_val = new Validation();
+        //$this->_val = new Validation();
+        $this->_cnxn = new DataBase();
     }
     public function home()
     {
@@ -22,19 +25,19 @@ class PetController
             $this->_f3->set("animal", $_POST["animal"]);
             if (validString($_POST["animal"])) {
                 if ($_POST["animal"] == "dog") {
-                    $_SESSION["animal"] = new Dog("dog");
+                    $_SESSION["animal"] = new Dog("dog", "", "");
                 } else if ($_POST["animal"] == "cat") {
-                    $_SESSION["animal"] = new Cat("cat");
+                    $_SESSION["animal"] = new Cat("cat", "", "");
                 } else if ($_POST["animal"] == "bird") {
-                    $_SESSION["animal"] = new Bird("bird");
+                    $_SESSION["animal"] = new Bird("bird", "", "");
                     $_SESSION["animal"]->setSize("large");
                 } else {
-                    $_SESSION["animal"] = new Pet($_POST["animal"]);
+                    $_SESSION["animal"] = new Pet($_POST["animal"], "", "");
                 }
 
                 $this->_f3->reroute("/order2");
             } else {
-                $f3->set("errors['animal']", "Please enter an animal.");
+                $this->_f3->set("errors['animal']", "Please enter an animal.");
             }
         }
         $view = new Template();
@@ -60,10 +63,29 @@ class PetController
         echo $view->render('views/form2.html');
     }
 
+    public function show() {
+
+        if ($this->_cnxn) {
+            $this->_f3->set("allPets", $this->_cnxn->allPets());
+        } else {
+            $this->_f3->set("allPets", "set");
+        }
+
+
+        $view = new Template();
+        echo $view->render('views/show.html');
+    }
+
     public function result()
     {
-        $this->_f3->set("talk", $_SESSION["animal"]->talk());
-        $view = new Template();
-        echo $view->render("views/results.html");
+        if ($this->_cnxn->addPet($_SESSION["animal"])) {
+            $view = new Template();
+            echo $view->render("views/results.html");
+        } else {
+            echo "something went wrong";
+            echo "<a href='order'>Try Again</a>";
+        }
+
+
     }
 }

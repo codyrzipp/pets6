@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Pets</title>
+</head>
+<body>
+<!--<check if="{{ @allPets }}">
+  <true>
+    <span>{{ @allPets }}</span>
+  </true>
+  <false>
+    <span>allPets not set</span>
+  </false>
+</check>
+<pre>{{ print_r(@SESSION) }}
+<br>
+  {{ print_r(@allPets) }}
+</pre>-->
+    <table>
+      <thead>
+      <repeat group="{{ @allPets[0] }}" key="{{ @key }}" value="{{ @val }}">
+          <th>{{ @key }}</th>
+      </repeat>
+      </thead>
+      <tbody>
+        <repeat group="{{ @allPets }}" key="{{ @key }}" value="{{ @val }}">
+          <tr>
+            <repeat group="@val" key="{{ @k }}" value="{{ @v }}">
+              <td>{{ @v }}</td>
+            </repeat>
+          </tr>
+        </repeat>
+      </tbody>
+    </table>
+<a href='order'>Add another</a>
+</body>
+</html>

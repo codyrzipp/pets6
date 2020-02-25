@@ -4,10 +4,12 @@ class Pet {
     private $_name;
     private $_color;
     private $_type;
+
     //parameterized constructor
-    function __construct($type="Unknown", $color="?") {
+    function __construct($type="Unknown", $color="unknown", $name="unknown") {
         $this->_type = $type;
         $this->_color = $color;
+        $this->_name = $name;
     }
 
     /**
